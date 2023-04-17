@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js'
 import BackgroundImage from './images/bg1.png'
-import WallImage from './images/brickWall.png'
 import Player from './classes/Player'
+import Wall from './classes/Wall'
 
 const speed = 2
 const bgTexture = PIXI.Texture.from(BackgroundImage)
@@ -19,21 +19,8 @@ bg.x = 0
 bg.y = 0
 
 
-const wallContainer = new PIXI.Container()
-const wallTexture = PIXI.Texture.from(WallImage)
-let wallTop = new PIXI.Sprite(wallTexture)
-let wallMiddle = new PIXI.Sprite(wallTexture)
-let wallBottom = new PIXI.Sprite(wallTexture)
-
-wallContainer.addChild(wallBottom, wallMiddle, wallTop)
-wallTop.position.set(0, 0)
-wallMiddle.position.set(0, 70)
-wallBottom.position.set(0, 140)
-wallContainer.y = window.innerHeight - 210
-wallContainer.x = window.innerWidth / 2
-
 app.stage.addChild(bg)
-app.stage.addChild(wallContainer)
+let wall = new Wall(app)
 let player = new Player(app)
 
 let elapsed = 0.0
@@ -42,10 +29,9 @@ let elapsed = 0.0
 app.ticker.add((delta) => {
   elapsed += delta
   bg.tilePosition.x -= speed
-  wallContainer.x -= speed
 
   let playerBounds = player.getBounds()
-  let wallBounds = wallContainer.getBounds()
+  let wallBounds = wall.getBounds()
 
   if ( playerBounds.x + playerBounds.width > wallBounds.x &&
        playerBounds.x < wallBounds.x + wallBounds.width &&
