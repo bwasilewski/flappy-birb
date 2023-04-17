@@ -1,11 +1,9 @@
 import * as PIXI from 'pixi.js'
-import BackgroundImage from './bg1.png'
-import PlayerImage from './frame-1.png'
-import WallImage from './brickWall.png'
+import BackgroundImage from './images/bg1.png'
+import WallImage from './images/brickWall.png'
+import Player from './classes/Player'
 
-const gravity = 0.25
 const speed = 2
-const jumpVelocity = -10
 const bgTexture = PIXI.Texture.from(BackgroundImage)
 
 const app = new PIXI.Application({
@@ -20,14 +18,6 @@ let bg = new PIXI.TilingSprite(bgTexture, window.innerWidth, 300)
 bg.x = 0
 bg.y = 0
 
-// console.log('Player Image: ', PlayerImage)
-
-let player = PIXI.Sprite.from(PlayerImage)
-player.scale.set(0.075)
-player.x = 100
-player.y = 100
-player.vx = 0
-player.vy = 0
 
 const wallContainer = new PIXI.Container()
 const wallTexture = PIXI.Texture.from(WallImage)
@@ -44,30 +34,18 @@ wallContainer.x = window.innerWidth / 2
 
 app.stage.addChild(bg)
 app.stage.addChild(wallContainer)
-app.stage.addChild(player)
+let player = new Player(app)
 
 let elapsed = 0.0
 
-window.addEventListener('keydown', (e) => {
-  if (e.key === ' ') {
-    player.vy = jumpVelocity
-  }
-})
 
 app.ticker.add((delta) => {
   elapsed += delta
-  player.vy += gravity
-  player.y += player.vy
   bg.tilePosition.x -= speed
   wallContainer.x -= speed
 
   let playerBounds = player.getBounds()
   let wallBounds = wallContainer.getBounds()
-
-  if ( player.y >= app.renderer.height - player.height ) {
-    console.log('Aww too bad!')
-    app.ticker.stop()
-  }
 
   if ( playerBounds.x + playerBounds.width > wallBounds.x &&
        playerBounds.x < wallBounds.x + wallBounds.width &&
