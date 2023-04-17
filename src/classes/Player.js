@@ -35,6 +35,19 @@ class Player {
   getSprite() {
     return this.sprite
   }
+
+  hasCollided(objectBounds) {
+    let playerBounds = this.sprite.getBounds()
+
+    if ( playerBounds.x + playerBounds.width > objectBounds.x &&
+         playerBounds.x < objectBounds.x + objectBounds.width &&
+         playerBounds.y + playerBounds.height > objectBounds.y &&
+         playerBounds.y < objectBounds.y + objectBounds.height ) {
+      return true
+    }
+
+    return false
+  }
   
   onTick() {
     this.sprite.vy += this.gravity

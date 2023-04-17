@@ -30,13 +30,7 @@ app.ticker.add((delta) => {
   elapsed += delta
   bg.tilePosition.x -= speed
 
-  let playerBounds = player.getBounds()
-  let wallBounds = wall.getBounds()
-
-  if ( playerBounds.x + playerBounds.width > wallBounds.x &&
-       playerBounds.x < wallBounds.x + wallBounds.width &&
-       playerBounds.y + playerBounds.height > wallBounds.y &&
-       playerBounds.y < wallBounds.y + wallBounds.height ) {
+  if ( player.hasCollided(wall.getBounds()) ) {
     console.log('Aww too bad!')
     app.ticker.stop()
   }
