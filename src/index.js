@@ -1,7 +1,12 @@
+import * as PIXI from 'pixi.js'
+import BackgroundImage from './bg1.png'
+import PlayerImage from './frame-1.png'
+import WallImage from './brickWall.png'
+
 const gravity = 0.25
 const speed = 2
 const jumpVelocity = -10
-const bgTexture = PIXI.Texture.from('images/bg1.png')
+const bgTexture = PIXI.Texture.from(BackgroundImage)
 
 const app = new PIXI.Application({
   width: window.innerWidth,
@@ -15,7 +20,9 @@ let bg = new PIXI.TilingSprite(bgTexture, window.innerWidth, 300)
 bg.x = 0
 bg.y = 0
 
-let player = new PIXI.Sprite.from('images/flying/frame-1.png')
+// console.log('Player Image: ', PlayerImage)
+
+let player = PIXI.Sprite.from(PlayerImage)
 player.scale.set(0.075)
 player.x = 100
 player.y = 100
@@ -23,7 +30,7 @@ player.vx = 0
 player.vy = 0
 
 const wallContainer = new PIXI.Container()
-const wallTexture = PIXI.Texture.from('images/brickWall.png')
+const wallTexture = PIXI.Texture.from(WallImage)
 let wallTop = new PIXI.Sprite(wallTexture)
 let wallMiddle = new PIXI.Sprite(wallTexture)
 let wallBottom = new PIXI.Sprite(wallTexture)
@@ -33,7 +40,7 @@ wallTop.position.set(0, 0)
 wallMiddle.position.set(0, 70)
 wallBottom.position.set(0, 140)
 wallContainer.y = window.innerHeight - 210
-wallContainer.x = window.innerWidth - 200
+wallContainer.x = window.innerWidth / 2
 
 app.stage.addChild(bg)
 app.stage.addChild(wallContainer)

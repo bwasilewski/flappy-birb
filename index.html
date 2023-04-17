@@ -1,26 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-  </head>
-  <style>
-    html {
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      margin: 0;
-      padding: 0;
-    }
-    canvas {
-      display: block;
-    }
-  </style>
-  <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.7/pixi.min.js"></script>
-    <script src="js/main.js"></script>
-  </body>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Webpack App</title>
+        <style>
+            html, body {
+                margin: 0;
+                padding: 0;
+            }
+
+            canvas {
+                display: block;
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+    </head>
+    <body>
+    </body>
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker
+                    .register("service-worker.js")
+                    .then((registration) => {
+                        console.log("Service Worker registered: ", registration);
+                    })
+                    .catch((registrationError) => {
+                        console.error("Service Worker registration failed: ", registrationError);
+                    });
+            });
+        }
+    </script>
 </html>
